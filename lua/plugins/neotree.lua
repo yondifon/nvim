@@ -21,28 +21,10 @@ return {
             buftype = { 'terminal', "quickfix" },
           },
         },
-        highlights = {
-          statusline = {
-            focused = {
-              bg = '#9d7cd8',
-            },
-            unfocused = {
-              bg = '#9d7cd8',
-            },
-          },
-        },
       },
     },
   },
   opts = {
-    close_if_last_window = true,
-    -- hide_root_node = true,
-    sources = {
-      "filesystem",
-      "buffers",
-      "git_status",
-      "document_symbols",
-    },
     source_selector = {
       winbar = true,
       statusline = false,
@@ -63,11 +45,6 @@ return {
         highlight_opened_files = true,
       },
     },
-    window = {
-      mappings = {
-        ["<cr>"] = "open_with_window_picker",
-      },
-    },
     filesystem = {
       filtered_items = {
         hide_dotfiles = false,
@@ -75,9 +52,10 @@ return {
           ".git",
         },
       },
-      -- follow_current_file = {
-      --   enabled = true,
-      -- },
+      follow_current_file = {
+        enabled = true,
+        leave_dirs_open = true
+      },
       group_empty_dirs = false
     },
   },

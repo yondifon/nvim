@@ -1,3 +1,7 @@
+-- Space is my leader.
+vim.g.mapleader = ' '
+vim.g.maplocalleader = ' '
+
 -- Clear search highlighting.
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>') 
 
