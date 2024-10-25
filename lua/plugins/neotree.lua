@@ -6,6 +6,7 @@ return {
   keys = {
     { '<leader>n', ':Neotree reveal toggle<CR>' },
     { '<leader>b', ':Neotree reveal<CR>' },
+    { '<leader>gs', ':Neotree reveal git_status<CR>' },
   },
   dependencies = {
     "nvim-lua/plenary.nvim",
@@ -17,7 +18,7 @@ return {
         filter_rules = {
           autoselect_one = true,
           include_current_win = false,
-          bo = {
+      bo = {
             filetype = { 'neo-tree', "neo-tree-popup", "notify" },
             buftype = { 'terminal', "quickfix" },
           },
