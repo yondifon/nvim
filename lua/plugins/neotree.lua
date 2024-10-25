@@ -5,6 +5,7 @@ return {
   cmd = 'Neotree',
   keys = {
     { '<leader>n', ':Neotree reveal toggle<CR>' },
+    { '<leader>b', ':Neotree reveal<CR>' },
   },
   dependencies = {
     "nvim-lua/plenary.nvim",
