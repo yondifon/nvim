@@ -62,7 +62,7 @@ return {
                     {
                         name = "@vue/typescript-plugin",
                         location = "/usr/local/lib/node_modules/@vue/typescript-plugin",
-                        languages = {"javascript", "typescript", "vue"},
+                        languages = { "javascript", "typescript", "vue" },
                     },
                 },
             },
@@ -131,7 +131,8 @@ return {
                 }),
                 null_ls.builtins.formatting.prettier.with({
                     condition = function(utils)
-                        return utils.root_has_file({ '.prettierrc', '.prettierrc.json', '.prettierrc.yml', '.prettierrc.js', 'prettier.config.js' })
+                        return utils.root_has_file({ '.prettierrc', '.prettierrc.json', '.prettierrc.yml',
+                            '.prettierrc.js', 'prettier.config.js' })
                     end,
                 }),
             },

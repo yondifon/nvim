@@ -3,6 +3,10 @@
 return {
     'lewis6991/gitsigns.nvim',
     lazy = false,
+    keys = {
+        { 'gp', ':Gitsigns preview_hunk<CR>' },
+        -- { 'gb', ':Gitsigns blame_line<CR>'},
+    },
     opts = {
         preview_config = {
             border = { '', '', '', ' ' },

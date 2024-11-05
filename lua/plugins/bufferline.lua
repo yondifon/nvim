@@ -19,5 +19,5 @@ return {
                 separator_style = 'slant',
             },
         }
-    end, 
+    end,
 }

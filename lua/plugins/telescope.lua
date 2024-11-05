@@ -1,58 +1,122 @@
-return {
-    {
-        'nvim-telescope/telescope.nvim', tag = '0.1.5',
-        dependencies = {
-            "nvim-lua/plenary.nvim",
-            { 
-                "nvim-telescope/telescope-fzf-native.nvim",
-                build = "make" 
-            },
-            "nvim-tree/nvim-web-devicons",
-        },
-        config = function()
-            local telescope = require("telescope")
-            local actions = require("telescope.actions")
+-- Fuzzy finder
 
-            telescope.setup({
-                defaults = {
-                    path_display = { "truncate " },
-                    layout_config = {
-                        horizontal = {
-                            preview_cutoff = 0,
-                        },
+return {
+    'nvim-telescope/telescope.nvim',
+    dependencies = {
+        'nvim-lua/plenary.nvim',
+        'nvim-tree/nvim-web-devicons',
+        'nvim-telescope/telescope-live-grep-args.nvim',
+        'nvim-telescope/telescope-ui-select.nvim',
+        { 'nvim-telescope/telescope-fzf-native.nvim', build = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release' },
+    },
+    keys = {
+        { '<leader>p', function() require('telescope.builtin').find_files() end },
+        -- { '<leader>p', function() require('telescope.builtin').find_files({ no_ignore = true, prompt_title = 'All Files' }) end },
+        { '<leader>o', function() require('telescope.builtin').buffers() end },
+        { '<leader>f', function()
+            require('telescope').extensions.live_grep_args.live_grep_args({
+                prompt_title = 'Grep Project',
+                vimgrep_arguments = {
+                    "rg",
+                    "--hidden",
+                    "-L",
+                    "--color=never",
+                    "--sort=path",
+                    "--no-heading",
+                    "--with-filename",
+                    "--line-number",
+                    "--column",
+                    "--smart-case",
+                }
+            })
+        end },
+        { '<leader>F', function()
+            require('telescope').extensions.live_grep_args.live_grep_args({
+                prompt_title = 'Grep All Files',
+                vimgrep_arguments = {
+                    "rg",
+                    "--hidden",
+                    "--no-ignore",
+                    "-L",
+                    "--color=never",
+                    "--sort=path",
+                    "--no-heading",
+                    "--with-filename",
+                    "--line-number",
+                    "--column",
+                    "--smart-case",
+                },
+            })
+        end },
+        { '<leader>h', function() require('telescope.builtin').help_tags() end },
+        { '<leader>s', function() require('telescope.builtin').lsp_document_symbols() end },
+    },
+    config = function()
+        local actions = require('telescope.actions')
+
+        require('telescope').setup({
+            defaults = {
+                path_display = { truncate = 1 },
+                prompt_prefix = '   ',
+                selection_caret = '  ',
+                layout_config = {
+                    prompt_position = 'top',
+                },
+                preview = {
+                    filesize_limit = 1,
+                    timeout = 200,
+                    msg_bg_fillchar = ' ',
+                },
+                sorting_strategy = 'ascending',
+                mappings = {
+                    i = {
+                        -- ['<esc>'] = actions.close,
+                        ['<C-Down>'] = actions.cycle_history_next,
+                        ['<C-Up>'] = actions.cycle_history_prev,
                     },
+                },
+                file_ignore_patterns = { '.git/' },
+            },
+            extensions = {
+                live_grep_args = {
                     mappings = {
                         i = {
-                            ["<C-k>"] = actions.move_selection_previous, -- move to prev result
-                            ["<C-j>"] = actions.move_selection_next, -- move to next result
-                            ["<C-q>"] = actions.send_selected_to_qflist + actions.open_qflist,
+                            ["<C-k>"] = require("telescope-live-grep-args.actions").quote_prompt(),
+                            ["<C-space>"] = actions.to_fuzzy_refine,
                         },
                     },
                 },
-            })
+                ['ui-select'] = {
+                    require('telescope.themes').get_dropdown(),
+                },
+            },
+            pickers = {
+                find_files = {
+                    hidden = true,
+                },
+                buffers = {
+                    previewer = false,
+                    initial_mode = "normal",
+                    layout_config = {
+                        width = 80,
+                    },
+                },
+                oldfiles = {
+                    prompt_title = 'History',
+                },
+                lsp_references = {
+                    previewer = false,
+                },
+                lsp_definitions = {
+                    previewer = false,
+                },
+                lsp_document_symbols = {
+                    symbol_width = 55,
+                },
+            },
+        })
 
-            telescope.load_extension("fzf")
-
-            -- set keymaps
-            local keymap = vim.keymap -- for conciseness
-
-            keymap.set("n", "<leader>p", "<cmd>Telescope find_files hidden=true no_ignore=true<cr>", { desc = "Fuzzy find files in cwd" })
-            keymap.set("n", "<leader>fr", "<cmd>Telescope oldfiles<cr>", { desc = "Fuzzy find recent files" })
-            keymap.set("n", "<leader>fg", "<cmd>Telescope live_grep<cr>", { desc = "Find string in cwd" })
-            keymap.set("n", "<leader>fc", "<cmd>Telescope grep_string<cr>", { desc = "Find string under cursor in cwd" })
-        end
-    },
-    {
-        'nvim-telescope/telescope-ui-select.nvim',
-        config = function()
-            require("telescope").setup {
-                extensions = {
-                    ["ui-select"] = {
-                        require("telescope.themes").get_dropdown {}
-                    }
-                }
-            }
-            require("telescope").load_extension("ui-select")
-        end
-    },
+        require('telescope').load_extension('fzf')
+        require('telescope').load_extension('ui-select')
+    end,
 }
