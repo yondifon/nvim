@@ -165,14 +165,6 @@ return {
         -- Commands
         vim.api.nvim_create_user_command('Format', function() vim.lsp.buf.format({ timeout_ms = 5000 }) end, {})
 
-        -- Diagnostic configuration
-        vim.diagnostic.config({
-            virtual_text = false,
-            float = {
-                source = true,
-            }
-        })
-
         -- Sign configuration
         vim.fn.sign_define('DiagnosticSignError', { text = '', texthl = 'DiagnosticSignError' })
         vim.fn.sign_define('DiagnosticSignWarn', { text = '', texthl = 'DiagnosticSignWarn' })
