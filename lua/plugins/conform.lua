@@ -8,6 +8,7 @@ return {
             json = { "eslint_d", stop_after_first = true },
             lua = { "lua-format", stop_after_first = true },
             typescriptreact = { "eslint_d", stop_after_first = true },
+            blade = { "blade-formatter", stop_after_first = true },
         },
         format_on_save = {
             -- These options will be passed to conform.format()

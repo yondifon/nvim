@@ -8,6 +8,24 @@ return {
     end,
     dependencies = {
         { 'nvim-treesitter/playground', cmd = "TSPlaygroundToggle" },
+        {
+            'JoosepAlviste/nvim-ts-context-commentstring',
+            opts = {
+                languages = {
+                    php_only = '// %s',
+                    php = '// %s',
+                },
+                custom_calculation = function(node, language_tree)
+                    if vim.bo.filetype == 'blade' then
+                        if language_tree._lang == 'html' then
+                            return '{{-- %s --}}'
+                        else
+                            return '// %s'
+                        end
+                    end
+                end,
+            },
+        },
         'nvim-treesitter/nvim-treesitter-textobjects',
     },
     main = 'nvim-treesitter.configs',
@@ -15,6 +33,7 @@ return {
         ensure_installed = {
             'arduino',
             'bash',
+            'blade',
             'comment',
             'css',
             'diff',
@@ -74,8 +93,6 @@ return {
         },
     },
     config = function(_, opts)
-        require('nvim-treesitter.configs').setup(opts)
-
         local parser_config = require "nvim-treesitter.parsers".get_parser_configs()
         parser_config.blade = {
             install_info = {
@@ -90,5 +107,7 @@ return {
                 ['.*%.blade%.php'] = 'blade',
             },
         })
+
+        require('nvim-treesitter.configs').setup(opts)
     end,
 }
