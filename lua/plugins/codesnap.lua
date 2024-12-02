@@ -9,7 +9,9 @@ return {
     },
     opts = {
         mac_window_bar = false,
+        has_breadcrumbs = true,
         code_font_family = "Hack Nerd Font Mono",
         watermark = "",
+        bg_color = "#252525"
     },
 }

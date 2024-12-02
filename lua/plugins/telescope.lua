@@ -57,11 +57,11 @@ return {
         require('telescope').setup({
             defaults = {
                 path_display = { truncate = 1 },
-                prompt_prefix = '   ',
+                -- prompt_prefix = '   ',
                 selection_caret = '  ',
-                layout_config = {
-                    prompt_position = 'top',
-                },
+                -- layout_config = {
+                --     prompt_position = 'top',
+                -- },
                 preview = {
                     filesize_limit = 1,
                     timeout = 200,
@@ -103,6 +103,7 @@ return {
                 },
                 oldfiles = {
                     prompt_title = 'History',
+                    initial_mode = "normal",
                 },
                 lsp_references = {
                     previewer = false,

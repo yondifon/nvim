@@ -17,7 +17,9 @@ return {
         neotest.setup({
             adapters = {
                 require('neotest-pest'),
-                require("neotest-phpunit"),
+                require("neotest-phpunit")({
+                    root_ignore_files = { "tests/Pest.php" }
+                }),
                 require("neotest-vitest"),
                 require("neotest-plenary")
             }
