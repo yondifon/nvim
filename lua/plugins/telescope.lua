@@ -6,16 +6,15 @@ return {
         'nvim-lua/plenary.nvim',
         'nvim-tree/nvim-web-devicons',
         'nvim-telescope/telescope-live-grep-args.nvim',
-        'nvim-telescope/telescope-ui-select.nvim',
         { 'nvim-telescope/telescope-fzf-native.nvim', build = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release' },
     },
     keys = {
         { '<leader>p', function() require('telescope.builtin').find_files() end },
         -- { '<leader>p', function() require('telescope.builtin').find_files({ no_ignore = true, prompt_title = 'All Files' }) end },
         { '<leader>o', function() require('telescope.builtin').buffers() end },
+        { '<leader>O', function() require('telescope.builtin').oldfiles() end },
         { '<leader>f', function()
             require('telescope').extensions.live_grep_args.live_grep_args({
-                prompt_title = 'Grep Project',
                 vimgrep_arguments = {
                     "rg",
                     "--hidden",
@@ -32,7 +31,6 @@ return {
         end },
         { '<leader>F', function()
             require('telescope').extensions.live_grep_args.live_grep_args({
-                prompt_title = 'Grep All Files',
                 vimgrep_arguments = {
                     "rg",
                     "--hidden",
@@ -57,20 +55,15 @@ return {
         require('telescope').setup({
             defaults = {
                 path_display = { truncate = 1 },
-                -- prompt_prefix = '   ',
-                selection_caret = '  ',
-                -- layout_config = {
-                --     prompt_position = 'top',
-                -- },
                 preview = {
                     filesize_limit = 1,
                     timeout = 200,
                     msg_bg_fillchar = ' ',
+                    treesitter = true
                 },
                 sorting_strategy = 'ascending',
                 mappings = {
                     i = {
-                        -- ['<esc>'] = actions.close,
                         ['<C-Down>'] = actions.cycle_history_next,
                         ['<C-Up>'] = actions.cycle_history_prev,
                     },
@@ -86,38 +79,37 @@ return {
                         },
                     },
                 },
-                ['ui-select'] = {
-                    require('telescope.themes').get_dropdown(),
-                },
             },
             pickers = {
                 find_files = {
                     hidden = true,
+                    sort_lastused = true,
                 },
                 buffers = {
-                    previewer = false,
+                    sort_lastused = true,
                     initial_mode = "normal",
-                    layout_config = {
-                        width = 80,
-                    },
                 },
                 oldfiles = {
                     prompt_title = 'History',
+                    sort_lastused = true,
+                    only_cwd = true,
                     initial_mode = "normal",
                 },
                 lsp_references = {
                     previewer = false,
+                    sort_lastused = true,
                 },
                 lsp_definitions = {
                     previewer = false,
+                    sort_lastused = true,
                 },
                 lsp_document_symbols = {
                     symbol_width = 55,
+                    sort_lastused = true,
                 },
             },
         })
 
         require('telescope').load_extension('fzf')
-        require('telescope').load_extension('ui-select')
     end,
 }
