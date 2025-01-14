@@ -18,3 +18,4 @@ vim.keymap.set('n', '<leader>w', ':w<CR>', { noremap = true, silent = true })
 vim.keymap.set('n', '<leader>q', ':q<CR>', { noremap = true, silent = true })
 
 vim.api.nvim_set_keymap("n", "<leader>\\", ":split<CR>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "<leader>/", ":vsplit<CR>", { noremap = true, silent = true })
