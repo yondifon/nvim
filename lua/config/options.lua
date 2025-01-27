@@ -46,3 +46,16 @@ vim.api.nvim_create_autocmd("TextYankPost", {
         vim.highlight.on_yank { higroup = "IncSearch", timeout = 200 }
     end,
 })
+
+vim.o.statusline = "%{mode()} %l:%c"
+
+vim.api.nvim_create_autocmd("BufWritePre", {
+    callback = function(event)
+        local file = event.match
+        local dir = vim.fn.fnamemodify(file, ":p:h") -- Get the absolute path of the directory
+        if not vim.loop.fs_stat(dir) then
+            vim.fn.mkdir(dir, "p")                   -- Create the directory recursively
+        end
+    end,
+    pattern = "*",
+})
