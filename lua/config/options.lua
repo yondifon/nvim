@@ -41,7 +41,7 @@ vim.opt.secure = true
 vim.opt.titlestring = '%f // nvim'
 vim.opt.inccommand = 'split'
 vim.opt.shell = vim.env.SHELL
-vim.opt.shellcmdflag = "-i -c"
+vim.opt.shellcmdflag = "-ic"
 
 vim.api.nvim_create_autocmd("TextYankPost", {
     callback = function()
