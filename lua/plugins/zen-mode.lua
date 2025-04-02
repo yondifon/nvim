@@ -14,13 +14,7 @@ return {
 
     config = function()
         vim.keymap.set("n", "<leader>z", function()
-            require('lualine').hide()
-
-            require("zen-mode").toggle({
-                on_close = function()
-                    require('lualine').hide({ unhide = true })
-                end,
-            })
+            require("zen-mode").toggle()
         end)
     end
 }

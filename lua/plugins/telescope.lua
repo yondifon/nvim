@@ -13,6 +13,7 @@ return {
         -- { '<leader>p', function() require('telescope.builtin').find_files({ no_ignore = true, prompt_title = 'All Files' }) end },
         { '<leader>o', function() require('telescope.builtin').buffers() end },
         { '<leader>O', function() require('telescope.builtin').oldfiles() end },
+        { '<leader>g', function() require('telescope.builtin').git_files() end },
         { '<leader>f', function()
             require('telescope').extensions.live_grep_args.live_grep_args({
                 vimgrep_arguments = {
@@ -54,13 +55,6 @@ return {
 
         require('telescope').setup({
             defaults = {
-                path_display = { truncate = 1 },
-                preview = {
-                    filesize_limit = 1,
-                    timeout = 200,
-                    msg_bg_fillchar = ' ',
-                    treesitter = true
-                },
                 sorting_strategy = 'ascending',
                 mappings = {
                     i = {
@@ -94,6 +88,9 @@ return {
                     sort_lastused = true,
                     only_cwd = true,
                     initial_mode = "normal",
+                },
+                git_files = {
+                    initial_mode = "normal"
                 },
                 lsp_references = {
                     previewer = false,
