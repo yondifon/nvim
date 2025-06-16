@@ -3,11 +3,11 @@ return {
     opts = {
         formatters_by_ft = {
             php = { "pint" },
-            javascript = { "eslint_d", stop_after_first = true },
-            typescript = { "eslint_d", stop_after_first = true },
-            json = { "eslint_d", stop_after_first = true },
+            javascript = { "prettier", stop_after_first = true },
+            typescript = { "prettier", stop_after_first = true },
+            json = { "prettier", stop_after_first = true },
             lua = { "lua-format", stop_after_first = true },
-            typescriptreact = { "eslint_d", stop_after_first = true },
+            typescriptreact = { "prettier", stop_after_first = true },
             blade = { "blade-formatter", stop_after_first = true },
         },
         format_on_save = {
